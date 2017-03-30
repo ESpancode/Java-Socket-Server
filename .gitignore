@@ -1,0 +1,60 @@
+// Java Socket Server
+// References from https://www.tutorialspoint.com/java/java_networking.htm
+// Part of a Server project
+
+
+import java.net;
+import java.io;
+
+
+//Public class is what the user can see
+public class server extend thread{
+    //private class is what the server is doing
+    private class ServerSocket serverSocket;
+
+    public class server (int port) throw IOExecption // exceptions will be thrown
+
+{
+    serverSocket = new ServerSocket(port) //creating new socket and port
+    serverSocket.setTimeout(1000); //setting timeout phase 
+}
+// Running the server
+
+public void run(){ // no return value needed
+while (true){
+    try{
+        System.out.println("Waiting on client" + 
+        serverSocket.getLocalPort() + "..."); //Finding local port
+  Socketserv = serverSocket.accept();
+            // Creating an input stream
+            System.out.println("connect to " + server.getRemoteSocketAddress());
+            InputStream in = new DataInputStream(server.getInputStream()); // create data input
+            
+            //Creating an output stream
+            System.out.println(in.readUTF());
+            OutputStream out = new DataOutputStream(server.getOutputStream());
+            out.writeUTF("Thanks " + server.getLocalSocketAddress()
+               + "\nGoodbye!");
+            server.close();
+
+        //Print out any timeout issues    
+         }catch(SocketTimeoutException s) {
+            System.out.println("timed out!");
+            break;
+         }catch(IOException e) {
+            e.printStackTrace();
+            break;
+         }
+      }
+   }
+   
+   public static void main(String [] args) {
+      int port = Integer.parseInt(args[0]);
+      try {
+         Thread t = new ServerSocket(port);
+         t.start();
+      }catch(IOException e) {
+         e.printStackTrace();
+      }
+   }
+}
